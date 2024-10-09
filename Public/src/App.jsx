@@ -1,0 +1,13 @@
+import React from 'react'
+import './index.css'
+import Routing from './utils/Routing.jsx'
+
+function App() {
+  return (
+    <>
+      <Routing />
+    </>
+  )
+}
+
+export default App
