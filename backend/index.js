@@ -1,24 +1,15 @@
 const express = require('express')
-const cors = require('cors')
+const connectDB = require('./db/connect.db.js')
+const signup = require('./controllers/signup.controller.js')
+const signin = require('./controllers/signin.controller.js')
 const app = express()
 
-app.use(cors())
-app.post('/signup', (req,res)=>{
-    res.json({
-        message: "You are signed up"
-    })
-})
+app.use(express.json())
 
-app.post('/signin', (req,res)=>{
-    res.json({
-        message: "You are signed in"
-    })
-})
+app.post('/signup', signup)
+app.post('/signin', signin)
 
-app.get('/dashboard', (req,res)=>{
-    res.json({
-        message: "Welcome to the dashboard"
-    })
+app.listen('3000', ()=>{
+    connectDB()
+    console.log('Server Started')
 })
-
-app.listen('3000', console.log('Server Started'))
