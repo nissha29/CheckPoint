@@ -2,8 +2,12 @@ import React, { useState } from 'react';
 import { User, Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { NavLink } from 'react-router-dom'
+import axios from 'axios'
 
-const Signup = () => {
+
+
+const Signin = () => {
+  
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -21,6 +25,16 @@ const Signup = () => {
     // Handle form submission
   };
 
+  const handleClick = async()=>{
+    try{
+      const response = await axios.post('http://localhost:3000/signin')
+      console.log(response.data.message)
+      window.location.href = '/dashboard'
+    }catch(err){
+      console.log(err)
+    }
+  }
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-red-100 to-red-200 p-4">
       <motion.h1 
@@ -29,7 +43,7 @@ const Signup = () => {
         transition={{ duration: 0.5 }}
         className="text-4xl md:text-5xl font-bold text-red-600 text-center mb-8"
       >
-        Sign up to CheckPoint
+        Sign in to CheckPoint
       </motion.h1>
       <motion.div 
         initial={{ y: 50, opacity: 0 }}
@@ -39,22 +53,6 @@ const Signup = () => {
       >
         <div className="p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="space-y-2">
-              <label htmlFor="name" className="text-md font-medium text-gray-700">Full Name</label>
-              <div className="flex items-center border-2 border-red-300 rounded-md focus-within:border-red-500 transition-colors duration-300">
-                <User className="m-2 text-red-400" />
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  placeholder="John Doe"
-                  className="w-full px-2 py-2 outline-none text-lg"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-            </div>
             <div className="space-y-2">
               <label htmlFor="email" className="text-md font-medium text-gray-700">Email</label>
               <div className="flex items-center border-2 border-red-300 rounded-md focus-within:border-red-500 transition-colors duration-300">
@@ -94,32 +92,20 @@ const Signup = () => {
                 </button>
               </div>
             </div>
-            <div className="space-y-2">
-              <label htmlFor="confirmPassword" className="text-md font-medium text-gray-700">Confirm Password</label>
-              <div className="flex items-center border-2 border-red-300 rounded-md focus-within:border-red-500 transition-colors duration-300">
-                <Lock className="m-2 text-red-400" />
-                <input
-                  type={showPassword ? "text" : "password"}
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  placeholder="••••••••"
-                  className="w-full px-2 py-2 outline-none text-lg"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-            </div>
             <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="w-full md:w-auto px-6 py-3 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors duration-300 text-lg font-semibold"
                 type="submit"
+                onClick={handleClick}
               >
-                Sign Up
+                Sign In
               </motion.button>
-              <NavLink to={'/signin'} className="text-red-600 hover:text-red-800 transition-colors duration-300">Already have an account?</NavLink>
+              <div className='flex gap-2'>
+                <div className='text-gray-700'>New User ?</div>
+                <NavLink to={'/signup'} className="text-red-600 hover:text-red-800 transition-colors duration-300">Register Here</NavLink>
+              </div>
             </div>
           </form>
         </div>
@@ -128,4 +114,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Signin;
