@@ -1,4 +1,5 @@
 const signin = (req,res)=>{
+    const { email, password } = req.body
     try{
         res.status(201).json({
             success: true,
