@@ -46,7 +46,7 @@ const Signup = () => {
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="w-full max-w-md bg-white rounded-lg shadow-xl overflow-hidden"
+        className="w-full max-w-md bg-white shadow-xl overflow-hidden"
       >
         <div className="p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -105,27 +105,11 @@ const Signup = () => {
                 </button>
               </div>
             </div>
-            <div className="space-y-2">
-              <label htmlFor="confirmPassword" className="text-md font-medium text-gray-700">Confirm Password</label>
-              <div className="flex items-center border-2 border-red-300 rounded-md focus-within:border-red-500 transition-colors duration-300">
-                <Lock className="m-2 text-red-400" />
-                <input
-                  type={showPassword ? "text" : "password"}
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  placeholder="••••••••"
-                  className="w-full px-2 py-2 outline-none text-lg"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-            </div>
             <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="w-full md:w-auto px-6 py-3 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors duration-300 text-lg font-semibold"
+                className="w-full md:w-auto px-4 py-2 bg-red-600 text-white hover:bg-red-700 transition-colors duration-300 text-lg font-semibold"
                 type="submit"
                 onClick={handleClick}
               >
