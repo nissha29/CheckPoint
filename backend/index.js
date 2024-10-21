@@ -27,13 +27,13 @@ app.use(auth)
 app.post('/todo', createTodo)
 
 //update todo
-app.patch('/todo', updateTodo)
+app.patch('/todo/:id', updateTodo)
 
 //delete todo
-app.post('/todo', deleteTodo)
+app.delete('/todo/:id', deleteTodo)
 
 //get all todos
-app.post('/todo', getAllTodos)
+app.get('/todo', getAllTodos)
 
 app.listen(PORT, ()=>{
     connectDB()

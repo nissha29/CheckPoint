@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const objectId = mongoose.Types.objectId
+const objectId = mongoose.Types.ObjectId
 
 const todoSchema = new Schema({
     userId: {
@@ -17,32 +17,40 @@ const todoSchema = new Schema({
     },
     status: {
         type: Boolean,
-        required: true,
+        default: false
     },
     dueDate: {
         type: Date,
         required: true,
+        get: function(date) {
+            return date ? date.toLocaleDateString() : null;
+        },
+        set: function(date) {
+            return date ? new Date(date) : null;
+        }
     },
     priority: {
         type: String,
         enum: ['low', 'medium', 'high'],
         default: 'medium'
     },
-    tags: [{
-        type: String
-    }],
+    tags: {
+        type: [String],
+        default: [],
+    },
     completedAt: {
         type: Date,
         default: null,
     },
     recurrence: {
         type: String,
-        enum: ['daily', 'weekly', 'monthly', 'none'],
+        enum: ['none' ,'daily', 'weekly', 'monthly'],
         default: 'none',
     },
-    attachments: [{
-        type: String  
-    }],
+    attachments: {
+        type: [String],
+        default: [],
+    },
     deleted: {
         type: Boolean,
         default: false
