@@ -49,7 +49,7 @@ const Signin = () => {
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="w-full max-w-md bg-white rounded-lg shadow-xl overflow-hidden"
+        className="w-full max-w-md bg-white shadow-xl overflow-hidden"
       >
         <div className="p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -96,7 +96,7 @@ const Signin = () => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="w-full md:w-auto px-6 py-3 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors duration-300 text-lg font-semibold"
+                className="w-full md:w-auto px-4 py-2 bg-red-600 text-white hover:bg-red-700 transition-colors duration-300 text-lg font-semibold"
                 type="submit"
                 onClick={handleClick}
               >
