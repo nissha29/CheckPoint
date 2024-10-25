@@ -20,14 +20,8 @@ const todoSchema = new Schema({
         default: false
     },
     dueDate: {
-        type: Date,
+        type: String,
         required: true,
-        get: function(date) {
-            return date ? date.toLocaleDateString() : null;
-        },
-        set: function(date) {
-            return date ? new Date(date) : null;
-        }
     },
     priority: {
         type: String,
@@ -39,8 +33,8 @@ const todoSchema = new Schema({
         default: [],
     },
     completedAt: {
-        type: Date,
-        default: null,
+        type: String,
+        default: "",
     },
     recurrence: {
         type: String,
