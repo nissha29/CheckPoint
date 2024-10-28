@@ -1,4 +1,6 @@
-function Card({ heading, text, index }) {
+import React from 'react';
+
+const Card = ({ heading, text, index }) => {
   const animationClasses = [
     "animate-fade-up",
     "animate-fade-up-200",
@@ -6,35 +8,77 @@ function Card({ heading, text, index }) {
     "animate-fade-up-600",
   ];
 
-  const rotationClasses = [
-    "hover:rotate-2",
-    "hover:-rotate-2",
-    "hover:rotate-1",
-    "hover:-rotate-1",
+  // Modern, balanced gradient pairs
+  const gradientPairs = [
+    {
+      base: "from-blue-600/10 to-indigo-600/10",
+      hover: "group-hover:from-blue-600/15 group-hover:to-indigo-600/15",
+      accent: "bg-blue-500"
+    },
+    {
+      base: "from-violet-600/10 to-purple-600/10",
+      hover: "group-hover:from-violet-600/15 group-hover:to-purple-600/15",
+      accent: "bg-violet-500"
+    },
+    {
+      base: "from-fuchsia-600/10 to-pink-600/10",
+      hover: "group-hover:from-fuchsia-600/15 group-hover:to-pink-600/15",
+      accent: "bg-fuchsia-500"
+    },
+    {
+      base: "from-teal-600/10 to-emerald-600/10",
+      hover: "group-hover:from-teal-600/15 group-hover:to-emerald-600/15",
+      accent: "bg-teal-500"
+    }
   ];
+
+  const currentGradient = gradientPairs[index % 4];
 
   return (
     <div
       className={`
-        relative overflow-hidden
-        bg-white/10 backdrop-blur-sm p-6 rounded
-        hover:shadow-xl hover:shadow-slate-500/20 
-        transition-all duration-300 ease-in-out
-        border border-white/20
-        transform ${rotationClasses[index % 4]} 
-        hover:scale-105 ${animationClasses[index % 4]}
-        hover:bg-white/20
-        cursor-pointer
+        rounded-[3rem]
+        relative group
+        overflow-hidden 
+        bg-gradient-to-r from-[#252c69] to-[#3d4775]
+        backdrop-blur-md p-6
+        transition-all duration-300
+        hover:scale-[1.02]
+        ${animationClasses[index % 4]}
+        hover:border-white/30
+        bg-opacity-40
+        hover:shadow-[0_0_0_10px_rgba(100,100,150,0.40)]
       `}
     >
-      <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent pointer-events-none" />
+      {/* Gradient background transition */}
+      <div className={`
+        absolute inset-0 opacity-0 transition-opacity duration-300
+        bg-gradient-to-br ${currentGradient.hover}
+        group-hover:opacity-100
+      `} />
+
+      {/* Content container */}
       <div className="relative z-10">
-        <div className="h-1 w-20 bg-white/80 mb-4 rounded-full transform transition-all duration-300 group-hover:w-full"></div>
-        <h3 className="text-xl font-semibold mb-2 text-white">{heading}</h3>
-        <p className="text-sm text-white/90">{text}</p>
+        {/* Accent line */}
+        <div className={`
+          h-0.5 w-8 mb-4 rounded-full
+          ${currentGradient.accent} opacity-60
+          group-hover:w-12 
+          transition-all duration-300
+        `} />
+
+        {/* Heading */}
+        <h3 className="text-lg font-semibold text-white mb-2">
+          {heading}
+        </h3>
+
+        {/* Body text */}
+        <p className="text-white/80 text-sm leading-relaxed">
+          {text}
+        </p>
       </div>
     </div>
   );
-}
+};
 
 export default Card;

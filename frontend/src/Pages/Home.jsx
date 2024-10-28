@@ -74,9 +74,9 @@ const LandingPage = () => {
         <Navbar />
         <div className="flex flex-col items-center justify-center p-4 mt-32">
           <h1 className="text-[3.5rem] font-bold text-slate-50 text-center tracking-wide">
-            Mastering Tasks, Unleashing Potential !
+            <span className="text-[#0957ff]">Mastering Tasks,</span> Unleashing Potential !
           </h1>
-          <div className="flex flex-col flex-wrap text-[1.5rem] text-gray-300 mb-10 mt-5 text-center">
+          <div className="flex flex-col flex-wrap text-[1.5rem] text-[#788fbe] mb-10 mt-5 text-center">
             <p>
               In a world where time is the ultimate currency, CheckPoint emerges
               as your
@@ -92,7 +92,7 @@ const LandingPage = () => {
             {suggestions.map((suggestion, index) => (
               <div
                 key={index}
-                className="bg-white/10 backdrop-blur-sm p-4 rounded-lg shadow-md flex items-center space-x-4 hover:shadow-2xl transition-all duration-300 border border-white/20 hover:bg-white/20 relative overflow-hidden"
+                className="bg-gradient-to-r from-[#252c69] to-[#3d4775] p-4 rounded-lg shadow-md flex items-center space-x-4 hover:shadow-2xl transition-all duration-30 relative overflow-hidden hover:cursor-pointer hover:scale-105"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent pointer-events-none" />
                 {suggestion.icon}
@@ -172,7 +172,7 @@ const LandingPage = () => {
             />
           </div>
         </div>
-        <div className="tagline bg-black w-full h-96 mt-24 font-thin text-7xl text-center flex justify-center items-center flex-wrap text-white">
+        <div className="tagline bg-[#0a193b] w-full h-96 mt-24 font-thin text-7xl text-center flex justify-center items-center flex-wrap text-white">
           Transform your to-dos into ta-das!
         </div>
         <Footer />

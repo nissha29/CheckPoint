@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Akaya+Kanadaka&family=Architects+Daughter&family=Eczar:wght@400..800&family=Indie+Flower&family=Julee&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&family=Rubik+Wet+Paint&family=Silkscreen:wght@400;700&family=Zeyada&display=swap'); 
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,6 +11,15 @@
 }
 
 body {
-  background-color: #0d0d0d;
+  background-color: #070a13;
+  font-family: "Quicksand", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
 }
 
+.akaya-kanadaka-regular {
+  font-family: "Akaya Kanadaka", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}

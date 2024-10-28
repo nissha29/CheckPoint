@@ -5,10 +5,10 @@ import { NavLink } from "react-router-dom";
 function Navbar() {
   return (
     <div className={`flex justify-between items-center px-4 sm:px-10`}>
-      <div className={`text-[3rem] sm:text-[3rem] font-bold text-white`}>
+      <div className={`text-[3rem] sm:text-[3rem] font-bold text-white akaya-kanadaka-regular`}>
         CheckPoint
       </div>
-      <div className={`hidden sm:flex gap-2 mr-10`}>
+      <div className={`hidden sm:flex gap-2 mr-10 font-medium`}>
         <NavLink to={"/signup"}>
           <Button text={"Sign up"} />
         </NavLink>
