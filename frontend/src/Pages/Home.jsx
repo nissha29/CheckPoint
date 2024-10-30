@@ -11,8 +11,14 @@ import image4 from "../assets/image4.png";
 import image5 from "../assets/image5.png";
 import Features, { Features2 } from "../Components/Features";
 import Footer from "../Components/Footer";
+import { FadeInOnScroll } from "../hooks/UseVisible";
 
 const LandingPage = () => {
+  //  const ref2 = useRef();
+  //  const isVisible2 = useIsVisible(ref2);
+
+  //  const ref3 = useRef();
+  //  const isVisible3 = useIsVisible(ref3);
   const suggestions = [
     {
       text: "Plan your week ahead",
@@ -72,110 +78,125 @@ const LandingPage = () => {
       <Background />
       <div className="relative z-10 main">
         <Navbar />
-        <div className="flex flex-col items-center justify-center p-4 mt-32">
-          <h1 className="text-[3.5rem] font-bold text-slate-50 text-center tracking-wide">
-            <span className="text-[#0957ff]">Mastering Tasks,</span> Unleashing Potential !
-          </h1>
-          <div className="flex flex-col flex-wrap text-[1.5rem] text-[#788fbe] mb-10 mt-5 text-center">
-            <p>
-              In a world where time is the ultimate currency, CheckPoint emerges
-              as your
-            </p>
-            <p>
-              personal productivity powerhouse. Say goodbye to chaos and hello
-              to seamless task
-            </p>
-            <p>management that propels you towards success.</p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl w-full">
-            {suggestions.map((suggestion, index) => (
-              <div
-                key={index}
-                className="bg-gradient-to-r from-[#252c69] to-[#3d4775] p-4 rounded-lg shadow-md flex items-center space-x-4 hover:shadow-2xl transition-all duration-30 relative overflow-hidden hover:cursor-pointer hover:scale-105"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent pointer-events-none" />
-                {suggestion.icon}
-                <span className="text-[1.3rem] text-white relative z-10">
-                  {suggestion.text}
-                </span>
-              </div>
-            ))}
-          </div>
-
-          <NavLink to={"/signup"}>
-            <Button
-              text="Start Organizing Now"
-              className="mt-8 rounded-xl py-2 hover:bg-gray-100 bg-white text-black text-[1.6rem] font-semibold"
-            />
-          </NavLink>
-
-          <div className="py-20">
-            <h1 className="text-5xl font-bold text-white text-center tracking-wide mb-16">
-              Why Choose CheckPoint?
+        <FadeInOnScroll delay={200}>
+          <div className="flex flex-col items-center justify-center p-4 mt-32">
+            <h1 className="text-[3.5rem] font-bold text-slate-50 text-center tracking-wide">
+              <span className="text-[#0957ff]">Mastering Tasks,</span>{" "}
+              Unleashing Potential !
             </h1>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-14 mx-auto max-w-7xl px-4">
-              {cards.map((card, index) => (
-                <Card
+            <div className="flex flex-col flex-wrap text-[1.5rem] text-[#788fbe] mb-10 mt-5 text-center">
+              <p>
+                In a world where time is the ultimate currency, CheckPoint
+                emerges as your
+              </p>
+              <p>
+                personal productivity powerhouse. Say goodbye to chaos and hello
+                to seamless task
+              </p>
+              <p>management that propels you towards success.</p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl w-full">
+              {suggestions.map((suggestion, index) => (
+                <div
                   key={index}
-                  index={index}
-                  heading={card.heading}
-                  text={card.text}
-                />
+                  className="bg-gradient-to-r from-[#252c69] to-[#3d4775] p-4 rounded-lg shadow-md flex items-center space-x-4 hover:shadow-2xl transition-all duration-30 relative overflow-hidden hover:cursor-pointer hover:scale-105"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent pointer-events-none" />
+                  {suggestion.icon}
+                  <span className="text-[1.3rem] text-white relative z-10">
+                    {suggestion.text}
+                  </span>
+                </div>
               ))}
             </div>
+
+            <NavLink to={"/signup"}>
+              <Button
+                text="Start Organizing Now"
+                className="mt-8 rounded-xl py-2 hover:bg-gray-100 bg-white text-black text-[1.6rem] font-semibold"
+              />
+            </NavLink>
+            <FadeInOnScroll>
+              <div className="py-20">
+                <h1 className="text-5xl font-bold text-white text-center tracking-wide mb-16">
+                  Why Choose CheckPoint?
+                </h1>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-14 mx-auto max-w-7xl px-4">
+                  {cards.map((card, index) => (
+                    <Card
+                      key={index}
+                      index={index}
+                      heading={card.heading}
+                      text={card.text}
+                    />
+                  ))}
+                </div>
+              </div>
+            </FadeInOnScroll>
+
+            <div>
+              <FadeInOnScroll delay={200}>
+                <h1 className="text-5xl font-bold text-white text-center tracking-wide">
+                  Ready to Transform Your Productivity?
+                </h1>
+              </FadeInOnScroll>
+              <FadeInOnScroll delay={200}>
+                <Features
+                  text1="Elevate Your"
+                  text2="Productivity"
+                  text3="Experience the tool that's empowering thousands of professionals to achieve more with less stress. CheckPoint turns complex task lists into manageable actions."
+                  text4="Stop juggling tasks, start completing them. Your productivity breakthrough awaits."
+                  image={image1}
+                />
+              </FadeInOnScroll>
+              <FadeInOnScroll delay={200}>
+                <Features2
+                  image={image2}
+                  text1="Time is Yours"
+                  text2="To Command"
+                  text3="Join the community of achievers who've discovered the secret to time mastery. CheckPoint transforms how you handle tasks, deadlines, and goals."
+                  text4="Take control of your schedule and turn time into your greatest ally."
+                />
+              </FadeInOnScroll>
+              <FadeInOnScroll delay={200}>
+                <Features
+                  text1="Balance Tasks"
+                  text2="Balance Life"
+                  text3="Thousands have already discovered how CheckPoint brings harmony to their workday. Our intuitive system adapts to your style, making task management feel effortless."
+                  text4="When your tasks are organized, your mind is free to focus on what truly matters."
+                  image={image3}
+                />
+              </FadeInOnScroll>
+              <FadeInOnScroll delay={200}>
+                <Features2
+                  image={image4}
+                  text1="From Chaos"
+                  text2="To Clarity"
+                  text3="Say goodbye to scattered to-do lists and missed deadlines. CheckPoint gives thousands of professionals the structure they need to turn task management into a superpower."
+                  text4="Bring order to your workday and clarity to your goals. Start today."
+                />
+              </FadeInOnScroll>
+              <FadeInOnScroll delay={200}>
+                <Features
+                  text1="Your Goals"
+                  text2="Within Reach"
+                  text3="Every major achievement starts with organized steps. Join thousands using CheckPoint to break down big goals into achievable tasks."
+                  text4="Stop dreaming about your goals and start systematically achieving them."
+                  image={image5}
+                />
+              </FadeInOnScroll>
+            </div>
           </div>
-
-          <div>
-            <h1 className="text-5xl font-bold text-white text-center tracking-wide">
-              Ready to Transform Your Productivity?
-            </h1>
-
-            <Features
-              text1="Elevate Your"
-              text2="Productivity"
-              text3="Experience the tool that's empowering thousands of professionals to achieve more with less stress. CheckPoint turns complex task lists into manageable actions."
-              text4="Stop juggling tasks, start completing them. Your productivity breakthrough awaits."
-              image={image1}
-            />
-
-            <Features2
-              image={image2}
-              text1="Time is Yours"
-              text2="To Command"
-              text3="Join the community of achievers who've discovered the secret to time mastery. CheckPoint transforms how you handle tasks, deadlines, and goals."
-              text4="Take control of your schedule and turn time into your greatest ally."
-            />
-
-            <Features
-              text1="Balance Tasks"
-              text2="Balance Life"
-              text3="Thousands have already discovered how CheckPoint brings harmony to their workday. Our intuitive system adapts to your style, making task management feel effortless."
-              text4="When your tasks are organized, your mind is free to focus on what truly matters."
-              image={image3}
-            />
-
-            <Features2
-              image={image4}
-              text1="From Chaos"
-              text2="To Clarity"
-              text3="Say goodbye to scattered to-do lists and missed deadlines. CheckPoint gives thousands of professionals the structure they need to turn task management into a superpower."
-              text4="Bring order to your workday and clarity to your goals. Start today."
-            />
-
-            <Features
-              text1="Your Goals"
-              text2="Within Reach"
-              text3="Every major achievement starts with organized steps. Join thousands using CheckPoint to break down big goals into achievable tasks."
-              text4="Stop dreaming about your goals and start systematically achieving them."
-              image={image5}
-            />
+        </FadeInOnScroll>
+        <FadeInOnScroll delay={200}>
+          <div className="tagline bg-[#0a193b] w-full h-96 mt-24 font-thin text-7xl text-center flex justify-center items-center flex-wrap text-white">
+            Transform your to-dos into ta-das!
           </div>
-        </div>
-        <div className="tagline bg-[#0a193b] w-full h-96 mt-24 font-thin text-7xl text-center flex justify-center items-center flex-wrap text-white">
-          Transform your to-dos into ta-das!
-        </div>
-        <Footer />
+        </FadeInOnScroll>
+        <FadeInOnScroll delay={200}>
+          <Footer />
+        </FadeInOnScroll>
       </div>
     </div>
   );
