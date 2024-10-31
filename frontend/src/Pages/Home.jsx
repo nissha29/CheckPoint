@@ -11,7 +11,8 @@ import image4 from "../assets/image4.png";
 import image5 from "../assets/image5.png";
 import Features, { Features2 } from "../Components/Features";
 import Footer from "../Components/Footer";
-import { FadeInOnScroll } from "../hooks/UseVisible";
+import { FadeInOnScroll } from "../hooks/FadeInOnScroll";
+import { Spotlight } from "../Components/Spotlight";
 
 const LandingPage = () => {
   //  const ref2 = useRef();
@@ -76,10 +77,12 @@ const LandingPage = () => {
   return (
     <div className="relative h-auto">
       <Background />
+
       <div className="relative z-10 main">
         <Navbar />
+
         <FadeInOnScroll delay={200}>
-          <div className="flex flex-col items-center justify-center p-4 mt-32">
+          <div className="flex flex-col items-center justify-center p-4 mt-32 relative">
             <h1 className="text-[3.5rem] font-bold text-slate-50 text-center tracking-wide">
               <span className="text-[#0957ff]">Mastering Tasks,</span>{" "}
               Unleashing Potential !
