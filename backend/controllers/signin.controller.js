@@ -21,7 +21,7 @@ const signin = async(req, res) => {
         if (!userExists) {
             return res.status(401).json({
                 success: false,
-                message: `User doesn't exist`
+                message: `Invalid credentials`
             });
         }
         

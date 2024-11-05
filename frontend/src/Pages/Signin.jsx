@@ -2,17 +2,36 @@ import React, { useState } from "react";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
+import axios from 'axios'
+import URL from '../../constants.js'
 
 const SigninPreview = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+    email: '',
+    password: '',
+  })
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const handleChange = (e)=>{
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const handleSubmit = async(e)=>{
+    e.preventDefault()
+    try{
+      const response = await axios.post(
+        `${URL}/signin`,
+        formData
+      )
+      console.log(response.data)
+      localStorage.setItem('token', response.data.token)
+    }catch(err){
+      console.log(`Error, ${err}`)
+    }
+  }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-[#070a13] p-4">
@@ -31,7 +50,7 @@ const SigninPreview = () => {
         className="w-full max-w-md rounded-lg border border-slate-700 shadow-2xl shadow-black/50 overflow-hidden"
       >
         <div className="p-8">
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div className="space-y-2">
               <label htmlFor="email" className="text-md font-medium text-slate-200">
                 Email
@@ -42,10 +61,11 @@ const SigninPreview = () => {
                   type="email"
                   id="email"
                   name="email"
-                  placeholder="john@example.com"
-                  className="w-full px-2 py-2 outline-none text-lg bg-transparent text-white placeholder-slate-500"
                   value={formData.email}
                   onChange={handleChange}
+                  placeholder="john@example.com"
+                  className="w-full px-2 py-2 outline-none text-lg bg-transparent text-white placeholder-slate-500"
+                  autoComplete="user email"
                   required
                 />
               </div>
@@ -60,10 +80,11 @@ const SigninPreview = () => {
                   type={showPassword ? "text" : "password"}
                   id="password"
                   name="password"
-                  placeholder="••••••••"
-                  className="w-full px-2 py-2 outline-none text-lg bg-transparent text-white placeholder-slate-500"
                   value={formData.password}
                   onChange={handleChange}
+                  placeholder="••••••••"
+                  className="w-full px-2 py-2 outline-none text-lg bg-transparent text-white placeholder-slate-500"
+                  autoComplete="user password"
                   required
                 />
                 <button

@@ -7,10 +7,12 @@ const updateTodo = require('./controllers/updateTodo.controller.js')
 const deleteTodo = require('./controllers/deleteTodo.controller.js')
 const getAllTodos = require('./controllers/getAllTodos.controller.js')
 const auth = require('./middlewares/auth.middleware.js')
+const cors = require('cors')
 const dotenv = require('dotenv')
 
 const app = express()
 dotenv.config()
+app.use(cors())
 const PORT = process.env.PORT || 8000
 
 app.use(express.json())
