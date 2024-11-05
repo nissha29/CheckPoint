@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 import axios from 'axios'
 import URL from '../../constants.js'
 
-const SigninPreview = () => {
+const Signin = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
@@ -126,4 +126,4 @@ const SigninPreview = () => {
   );
 };
 
-export default SigninPreview;
+export default Signin;
