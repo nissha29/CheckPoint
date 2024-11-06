@@ -1,9 +1,8 @@
-const jwt = require('jsonwebtoken')
-
 const JWT_SECRET = process.env.JWT_SECRET
+const verifyJWT = require('../utils/verifyJWT.utils.js')
 
 const auth = async (req, res, next) => {
-    const token = req.headers.authorization
+    const token = req.headers.token
 
     if (!token) {
         return res.status(401).json({ 
@@ -12,7 +11,7 @@ const auth = async (req, res, next) => {
     }
 
     try {
-        const response = jwt.verify(token, JWT_SECRET)
+        const response = verifyJWT(token, JWT_SECRET)
         req.userId = response.userId
         next()
     } catch (err) {

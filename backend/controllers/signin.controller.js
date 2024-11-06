@@ -1,7 +1,7 @@
 const userModel = require('../models/users.model.js')
-const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const dotenv = require('dotenv')
+const generateJWT = require('../utils/generateJWT.utils.js')
 
 dotenv.config()
 const JWT_SECRET = process.env.JWT_SECRET
@@ -33,11 +33,7 @@ const signin = async(req, res) => {
             });
         }
 
-        const token = jwt.sign(
-            { userId: userExists._id },
-            JWT_SECRET,
-            { expiresIn: '1h' }
-        )
+        const token = generateJWT(userExists._id, '15d')
 
         return res.status(200).json({
             token,
