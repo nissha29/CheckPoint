@@ -9,13 +9,18 @@ const getAllTodos = require('./controllers/getAllTodos.controller.js')
 const auth = require('./middlewares/auth.middleware.js')
 const cors = require('cors')
 const dotenv = require('dotenv')
+const cookieParser = require('cookie-parser')
 
 const app = express()
 dotenv.config()
-app.use(cors())
+app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true
+}))
 const PORT = process.env.PORT || 8000
 
 app.use(express.json())
+app.use(cookieParser())
 
 //user sign up 
 app.post('/signup', signup)

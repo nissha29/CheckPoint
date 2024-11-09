@@ -24,10 +24,12 @@ const Signin = () => {
     try{
       const response = await axios.post(
         `${URL}/signin`,
-        formData
+        formData,
+        {
+          withCredentials: true
+        }
       )
       console.log(response.data)
-      localStorage.setItem('token', response.data.token)
     }catch(err){
       console.log(`Error, ${err}`)
     }

@@ -51,7 +51,13 @@ const signup = async(req,res)=>{
 
         const token = generateJWT(newUser._id, '15d')
 
-        return res.status(201).json({
+        return res
+        .cookie("token", token, {
+            maxAge: 1000*60*60*24*15,
+            sameSite: 'lax',
+        })
+        .status(201)
+        .json({
             success: true,
             message: 'You are signed up',
             token,

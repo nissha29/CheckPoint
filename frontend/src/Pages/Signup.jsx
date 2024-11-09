@@ -25,10 +25,12 @@ const Signup = () => {
     try{
       const response = await axios.post(
         `${URL}/signup`,
-        formData
+        formData,
+        {
+          withCredentials: true
+        }
       )
       console.log(response.data)
-      localStorage.setItem('token', response.data.token)
     }catch(err){
       console.log(`Error, ${err}`)
     }

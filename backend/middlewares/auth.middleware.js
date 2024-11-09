@@ -2,7 +2,7 @@ const JWT_SECRET = process.env.JWT_SECRET
 const verifyJWT = require('../utils/verifyJWT.utils.js')
 
 const auth = async (req, res, next) => {
-    const token = req.headers.token
+    const token = req.cookies.token
 
     if (!token) {
         return res.status(401).json({ 

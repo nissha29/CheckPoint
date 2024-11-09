@@ -35,7 +35,12 @@ const signin = async(req, res) => {
 
         const token = generateJWT(userExists._id, '15d')
 
-        return res.status(200).json({
+        return res
+        .cookie("token", token, {
+            maxAge: 1000*60*60*24*15,
+            sameSite: 'lax',
+        })
+        .status(200).json({
             token,
             success: true,
             message: 'You are signed in'
