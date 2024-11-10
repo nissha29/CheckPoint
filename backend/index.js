@@ -28,19 +28,17 @@ app.post('/signup', signup)
 //user sign in
 app.post('/signin', signin)
 
-app.use(auth)
-
 //create todo
-app.post('/todo', createTodo)
+app.post('/todo', auth, createTodo)
 
 //update todo
-app.patch('/todo/:id', updateTodo)
+app.patch('/todo/:id', auth, updateTodo)
 
 //delete todo
-app.delete('/todo/:id', deleteTodo)
+app.delete('/todo/:id', auth, deleteTodo)
 
 //get all todos
-app.get('/todo', getAllTodos)
+app.get('/todo', auth, getAllTodos)
 
 app.listen(PORT, ()=>{
     connectDB()
