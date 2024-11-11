@@ -3,6 +3,7 @@ const { z } = require('zod')
 const bcrypt = require('bcrypt')
 const dotenv = require('dotenv')
 const generateJWT = require('../utils/generateJWT.utils.js')
+const sendWelcomeMail = require(`../mail/resend.mail.js`)
 
 dotenv.config()
 const JWT_SECRET = process.env.JWT_SECRET
@@ -51,6 +52,8 @@ const signup = async(req,res)=>{
 
         const token = generateJWT(newUser._id, '15d')
 
+        sendWelcomeMail(email, name)
+        
         return res
         .cookie("token", token, {
             maxAge: 1000*60*60*24*15,

@@ -1,12 +1,7 @@
 const express = require('express')
 const connectDB = require('./db/connect.db.js')
-const signup = require('./controllers/signup.controller.js')
-const signin = require('./controllers/signin.controller.js')
-const createTodo = require('./controllers/createTodo.controller.js')
-const updateTodo = require('./controllers/updateTodo.controller.js')
-const deleteTodo = require('./controllers/deleteTodo.controller.js')
-const getAllTodos = require('./controllers/getAllTodos.controller.js')
-const auth = require('./middlewares/auth.middleware.js')
+const userRouter = require('./routes/user.route.js')
+const todoRouter = require('./routes/todo.route.js')
 const cors = require('cors')
 const dotenv = require('dotenv')
 const cookieParser = require('cookie-parser')
@@ -22,23 +17,9 @@ const PORT = process.env.PORT || 8000
 app.use(express.json())
 app.use(cookieParser())
 
-//user sign up 
-app.post('/signup', signup)
+app.use('/user', userRouter)
+app.use('/todo', todoRouter)
 
-//user sign in
-app.post('/signin', signin)
-
-//create todo
-app.post('/todo', auth, createTodo)
-
-//update todo
-app.patch('/todo/:id', auth, updateTodo)
-
-//delete todo
-app.delete('/todo/:id', auth, deleteTodo)
-
-//get all todos
-app.get('/todo', auth, getAllTodos)
 
 app.listen(PORT, ()=>{
     connectDB()

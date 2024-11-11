@@ -2,7 +2,6 @@ const { z } =  require('zod')
 const todoModel = require('../models/todos.model.js')
 
 const createTodo = async(req,res)=>{
-    const { title, description, status, dueDate, priority, tags, completedAt, recurrence, attachments, deleted } = req.body
     const userId = req.userId
 
     const requiredBody = z.object({
@@ -23,7 +22,6 @@ const createTodo = async(req,res)=>{
             message: `Please provide input value in correct format, ${isParsedWithSuccess.error}`
         })
     }
-    console.log(isParsedWithSuccess)
 
     try{
         await todoModel.create({

@@ -12,14 +12,8 @@ import image5 from "../assets/image5.png";
 import Features, { Features2 } from "../Components/Features";
 import Footer from "../Components/Footer";
 import { FadeInOnScroll } from "../hooks/FadeInOnScroll";
-import { Spotlight } from "../Components/Spotlight";
 
 const LandingPage = () => {
-  //  const ref2 = useRef();
-  //  const isVisible2 = useIsVisible(ref2);
-
-  //  const ref3 = useRef();
-  //  const isVisible3 = useIsVisible(ref3);
   const suggestions = [
     {
       text: "Plan your week ahead",

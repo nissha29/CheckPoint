@@ -15,12 +15,12 @@ const deleteTodo = async(req,res)=>{
         if(!todoToDelete){
             return res.status(404).json({
                 success: false,
-                message: 'No product found to delete'
+                message: 'No todo found to delete'
             })
         }
         return res.status(201).json({
             success: true,
-            message: 'Product deleted successfully'
+            message: 'Todo deleted successfully'
         })
     }catch(err){
         return res.status(500).json({
