@@ -23,7 +23,7 @@ const Signin = () => {
     e.preventDefault()
     try{
       const response = await axios.post(
-        `${URL}/signin`,
+        `${URL}/user/signin`,
         formData,
         {
           withCredentials: true

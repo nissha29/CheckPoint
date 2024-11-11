@@ -24,7 +24,7 @@ const Signup = () => {
     e.preventDefault();
     try{
       const response = await axios.post(
-        `${URL}/signup`,
+        `${URL}/user/signup`,
         formData,
         {
           withCredentials: true
