@@ -1,4 +1,3 @@
-import "./index.css";
 import Routing from "./utils/Routing.jsx";
 
 function App() {

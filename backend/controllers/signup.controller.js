@@ -66,18 +66,6 @@ const signup = async(req,res)=>{
             token,
         })
     }catch(err){
-        if(err.code === 11000){
-            return res.status(409).json({
-                success: false,
-                message: 'email already exists'
-            })
-        }
-        else if (err.name === 'ValidationError') {
-            return res.status(400).json({
-                success: false,
-                message: `Validation error: ${err.message}`,
-            });
-        }
         res.status(500).json({
             success: false,
             message: `${err}, Server error`

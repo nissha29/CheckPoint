@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { User, Mail, Lock, Eye, EyeOff } from "lucide-react";
 import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
@@ -6,6 +7,7 @@ import axios from 'axios'
 import URL from '../../constants.js'
 
 const Signup = () => {
+  const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -142,6 +144,23 @@ const Signup = () => {
             </div>
           </form>
         </div>
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+        className="mt-6 w-full max-w-md"
+      >
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={()=>{
+            navigate("/")
+          }}
+          className="w-full px-6 py-2 bg-[#18294d] text-white rounded-md hover:bg-[#18295dd8] transition-colors duration-300 text-lg font-semibold"
+        >
+          Go Back
+        </motion.button>
       </motion.div>
     </div>
   );
