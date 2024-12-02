@@ -3,6 +3,7 @@ import Signup from "../Pages/Signup";
 import Signin from "../Pages/Signin";
 import Home from "../Pages/Home";
 import ErrorPage from "../Pages/ErrorPage.jsx";
+import DashBoard from "../Pages/DashBoard.jsx";
 
 function Routing() {
   return (
@@ -12,6 +13,7 @@ function Routing() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="*" element={<ErrorPage />}/>
+        <Route path="/dashboard" element={<DashBoard />}/>
       </Routes>
     </div>
   );

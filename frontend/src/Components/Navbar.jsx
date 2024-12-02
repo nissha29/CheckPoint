@@ -1,12 +1,16 @@
 import React from "react";
 import Button from "./Button";
+import { CheckSquare } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
 function Navbar() {
   return (
     <div className={`flex justify-between items-center px-4 sm:px-10`}>
-      <div className={`text-[3rem] sm:text-[3rem] font-bold text-white akaya-kanadaka-regular`}>
-        CheckPoint
+      <div className={`flex items-center gap-2`}>
+        <div className="bg-blue-600 p-2 rounded-xl">
+          <CheckSquare size={28} />
+        </div>
+        <h1 className="text-[3rem] sm:text-[3rem] text-white font-bold akaya-kanadaka-regular">Checkpoint</h1>
       </div>
       <div className={`hidden sm:flex gap-2 mr-10 font-medium`}>
         <NavLink to={"/signup"}>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Mail, Lock, Eye, EyeOff } from "lucide-react";
+import { Mail, Lock, Eye, EyeOff, AlertTriangle } from "lucide-react";
 import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
 import axios from 'axios'
@@ -8,13 +8,15 @@ import URL from '../../constants.js'
 
 const Signin = () => {
   const navigate = useNavigate()
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false)
+  const [error, setError] = useState('')
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   })
 
   const handleChange = (e)=>{
+    setError('')
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
@@ -23,17 +25,26 @@ const Signin = () => {
 
   const handleSubmit = async(e)=>{
     e.preventDefault()
+    setError('')
     try{
-      const response = await axios.post(
+      await axios.post(
         `${URL}/user/signin`,
         formData,
         {
           withCredentials: true
         }
       )
-      console.log(response.data)
+      navigate("/dashboard")
     }catch(err){
-      console.log(`Error, ${err}`)
+      if (err.response) {
+        if (err.response.status === 404) {
+          setError('Invalid credentials');
+        } else if (err.response.status === 500) {
+          setError('Server error');
+        } else {
+          setError(err.response.data.message || 'An error occurred');
+        }
+      }
     }
   }
 
@@ -54,6 +65,16 @@ const Signin = () => {
         className="w-full max-w-md rounded-lg border border-slate-700 shadow-2xl shadow-black/50 overflow-hidden"
       >
         <div className="p-8">
+          {error && (
+                <motion.div 
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex items-center bg-red-600/20 border border-red-600/50 text-red-300 p-3 rounded-md mb-6 space-x-2"
+                  >
+                  <AlertTriangle className="text-red-500" />
+                  <p className="text-sm">{error}</p>
+                </motion.div>
+          )}
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div className="space-y-2">
               <label htmlFor="email" className="text-md font-medium text-slate-200">

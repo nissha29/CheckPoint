@@ -4,13 +4,12 @@ const dotenv = require('dotenv')
 const generateJWT = require('../utils/generateJWT.utils.js')
 
 dotenv.config()
-const JWT_SECRET = process.env.JWT_SECRET
 
 const signin = async(req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-        return res.status(400).json({
+        return res.status(422).json({
             success: false,
             message: 'Email and password are required'
         });
@@ -19,7 +18,7 @@ const signin = async(req, res) => {
     try {
         const userExists = await userModel.findOne({ email });
         if (!userExists) {
-            return res.status(401).json({
+            return res.status(404).json({
                 success: false,
                 message: `Invalid credentials`
             });
@@ -27,7 +26,7 @@ const signin = async(req, res) => {
         
         const passwordMatched = await bcrypt.compare(password, userExists.password);
         if (!passwordMatched) {
-            return res.status(401).json({
+            return res.status(404).json({
                 success: false,
                 message: 'Invalid credentials'
             });

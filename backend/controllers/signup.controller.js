@@ -26,7 +26,7 @@ const signup = async(req,res)=>{
     if(! isParsedWithSuccess.success){
         return res.status(400).json({
             success: false,
-            message: `Please provide input values in correct format, ${isParsedWithSuccess.error}`
+            message: `Please provide input values in correct format`
         })
     }
 
@@ -35,9 +35,9 @@ const signup = async(req,res)=>{
     })
 
     if(userExists){
-        return res.status(400).json({
+        return res.status(409).json({
             success: false,
-            mesaage: `User already exists`
+            message: `User already exists`
         })
     }
 
