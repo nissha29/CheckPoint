@@ -6,7 +6,7 @@ const generateJWT = require('../utils/generateJWT.utils.js')
 const sendWelcomeMail = require(`../mail/resend.mail.js`)
 
 dotenv.config()
-const JWT_SECRET = process.env.JWT_SECRET
+
 const signup = async(req,res)=>{
 
     const { name, email, password } = req.body
