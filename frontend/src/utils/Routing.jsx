@@ -12,8 +12,8 @@ function Routing() {
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
-        <Route path="*" element={<ErrorPage />}/>
         <Route path="/dashboard" element={<DashBoard />}/>
+        <Route path="*" element={<ErrorPage />}/>
       </Routes>
     </div>
   );

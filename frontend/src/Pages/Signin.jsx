@@ -125,6 +125,9 @@ const Signin = () => {
                 </button>
               </div>
             </div>
+            <p className="text-[0.9rem] text-slate-400 mt-1">
+                Password must have: 8-50 chars, with lowercase, uppercase, number, and special character
+              </p>
             <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
               <motion.button
                 whileHover={{ scale: 1.05 }}

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-const todoModel = require("../models/todos.model")
+const todoModel = require("../models/todos.model.js")
 
 const deleteTodo = async(req,res)=>{
     const { id } = req.params
