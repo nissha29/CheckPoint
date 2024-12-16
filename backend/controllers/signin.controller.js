@@ -40,6 +40,8 @@ const signin = async(req, res) => {
             sameSite: 'lax',
         })
         .status(200).json({
+            name: userExists.name,
+            email: userExists.email,
             token,
             success: true,
             message: 'You are signed in'

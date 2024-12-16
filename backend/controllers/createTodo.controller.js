@@ -10,10 +10,7 @@ const createTodo = async(req,res)=>{
         status: z.boolean().optional().default(false),
         dueDate: z.string(),  
         priority: z.string().optional().default("medium"),
-        tags: z.array(z.string()).optional().default([]),
-        completedAt: z.string().optional(),
         recurrence: z.string().optional(),
-        attachments: z.array(z.string()).optional().default([]),
         deleted: z.boolean().optional().default(false),
     });
     const isParsedWithSuccess = requiredBody.safeParse(req.body)

@@ -11,7 +11,7 @@ import image4 from "../assets/image4.png";
 import image5 from "../assets/image5.png";
 import Features, { Features2 } from "../Components/Features";
 import Footer from "../Components/Footer";
-import { FadeInOnScroll } from "../hooks/FadeInOnScroll";
+import { FadeInOnScroll } from "../Components/FadeInOnScroll.jsx";
 
 const LandingPage = () => {
   const suggestions = [

@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Mail, Lock, Eye, EyeOff, AlertTriangle } from "lucide-react";
 import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
 import axios from 'axios'
 import URL from '../../constants.js'
+import { AuthContext, AuthContextProvider } from "../Context/AuthContext.jsx";
 
 const Signin = () => {
+  const { signIn } = useContext(AuthContext); 
   const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
@@ -27,14 +29,24 @@ const Signin = () => {
     e.preventDefault()
     setError('')
     try{
-      await axios.post(
+      const response = await axios.post(
         `${URL}/user/signin`,
         formData,
         {
           withCredentials: true
         }
       )
-      navigate("/dashboard")
+      let username = response.data.name
+      let email = response.data.email
+      signIn({
+        username,
+        email
+      })
+      navigate("/dashboard", {
+        state: {
+          name: username
+        }
+      })
     }catch(err){
       if (err.response) {
         if (err.response.status === 404) {

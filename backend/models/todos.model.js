@@ -28,22 +28,10 @@ const todoSchema = new Schema({
         enum: ['low', 'medium', 'high'],
         default: 'medium'
     },
-    tags: {
-        type: [String],
-        default: [],
-    },
-    completedAt: {
-        type: String,
-        default: "",
-    },
     recurrence: {
         type: String,
         enum: ['none' ,'daily', 'weekly', 'monthly'],
         default: 'none',
-    },
-    attachments: {
-        type: [String],
-        default: [],
     },
     deleted: {
         type: Boolean,
