@@ -39,7 +39,9 @@ const TaskDashboard = () => {
     let total = tasks.length;
     let completed = tasks.filter(task => (task.status === true)).length;
     let progress = total - completed;
-    let completionRate = ((completed / total) * 100).toFixed(2);
+    let completionRate = total > 0 
+    ? ((completed / total) * 100).toFixed(2)
+    : 0;
 
     return [
       { label: 'Total Tasks', value: total.toString() },
@@ -55,6 +57,10 @@ const TaskDashboard = () => {
     getTodos()
     getStats()
   },[])
+
+  useEffect(()=>{
+    getStats()
+  },[tasks])
 
   async function handleEdit(task){
     try{
