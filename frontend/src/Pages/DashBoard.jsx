@@ -77,7 +77,7 @@ const TaskDashboard = () => {
         }
       )
     }catch(err){
-      console.log(`Error in task updating as completed, /dashboard`)
+      console.log(`Error in task updating as completed, /dashboard, ${err}`)
     } 
   }
 
