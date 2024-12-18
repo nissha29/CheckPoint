@@ -54,11 +54,20 @@ const signup = async(req,res)=>{
 
         sendWelcomeMail(email, name)
         
+        let cookieOptions = {
+            maxAge: 30 * 24 * 60 * 60 * 1000,
+            sameSite: 'none',
+            httpOnly: true,
+            secure: true,
+            path: '/',
+        };
+
+        if (process.env.NODE_ENV === 'production') {
+            cookieOptions.domain = 'checkpoint-fjy6.onrender.com';
+        }
+
         return res
-        .cookie("token", token, {
-            maxAge: 1000*60*60*24*15,
-            sameSite: 'lax',
-        })
+        .cookie("token", token, cookieOptions)
         .status(201)
         .json({
             name: newUser.name,

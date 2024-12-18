@@ -19,6 +19,8 @@ app.use(cors({
         }
     },
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Cookie']
 }));
 
 const PORT = process.env.PORT || 8000
