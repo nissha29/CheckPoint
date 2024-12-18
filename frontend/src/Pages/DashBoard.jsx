@@ -10,22 +10,14 @@ import URL from '../../constants.js'
 import { AuthContext } from '../Context/AuthContext.jsx';
 
 const TaskDashboard = () => {
-  const { user, signOut } = useContext(AuthContext)
+  const { signOut } = useContext(AuthContext)
   const location = useLocation();
   const name = (location.state?.name || 'user');
-  const email = (location.state?.email);
-  console.log(email)
+  const email = (location.state?.email || 'email');
   const [selectedTask, setSelectedTask] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
   const [isCreateNewTaskOpen, setIsCreateNewTaskOpen] = useState(false);
   const [tasks, setTasks] = useState([]);
-  
-  const stats = [
-    { label: 'Total Tasks', value: '5' },
-    { label: 'Completed', value: '1' },
-    { label: 'In Progress', value: '2' },
-    { label: 'Completion Rate', value: '20%' }
-  ];
 
   async function getTodos(){
     try{
@@ -43,9 +35,66 @@ const TaskDashboard = () => {
     }
   }
 
+  function getStats(){
+    let total = tasks.length;
+    let completed = tasks.filter(task => (task.status === true)).length;
+    let progress = total - completed;
+    let completionRate = ((completed / total) * 100).toFixed(2);
+
+    return [
+      { label: 'Total Tasks', value: total.toString() },
+      { label: 'Completed', value: completed.toString() },
+      { label: 'In Progress', value: progress.toString() },
+      { label: 'Completion Rate', value: `${completionRate}%` }
+    ];
+  }
+
+  const stats = getStats()
+
   useEffect(()=>{
     getTodos()
+    getStats()
   },[])
+
+  async function handleEdit(task){
+    try{
+
+    }catch(err){
+      console.log(`Error in task deleting, /dashboard`)
+    }
+  }
+
+  async function handleComplete(task){
+    try{
+      const id = task._id;
+      await axios.patch(
+        `${URL}/todo/${id}`,
+        {
+          status: true,
+        },
+        {
+          withCredentials: true,
+        }
+      )
+    }catch(err){
+      console.log(`Error in task updating as completed, /dashboard`)
+    } 
+  }
+
+  async function handleDelete(task){
+    try{
+      const id = task._id;
+      await axios.delete(
+        `${URL}/todo/${id}`,
+        {
+          withCredentials: true,
+        }
+      )
+      getTodos();
+    }catch(err){
+      console.log(`Error in task deleting, /dashboard, ${err}`)
+    }
+  }
 
   return (
     <div className="min-h-screen p-4 md:p-6 lg:p-8 text-white">
@@ -146,6 +195,9 @@ const TaskDashboard = () => {
               key={index} 
               task={task} 
               onClick={() => setSelectedTask(task)}
+              onEdit={handleEdit}
+              onComplete={handleComplete}
+              onDelete={handleDelete}
             />
           ))}
         </div>
@@ -158,6 +210,7 @@ const TaskDashboard = () => {
         onClose={() => setSelectedTask(null)}
       />
 
+      {/* Create a new task */}
       <CreateNewTask
         isOpen={isCreateNewTaskOpen}
         onClose={() => setIsCreateNewTaskOpen(false)}

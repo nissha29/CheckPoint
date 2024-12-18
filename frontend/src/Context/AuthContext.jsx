@@ -24,12 +24,14 @@ function AuthContextProvider({ children }){
                     }
                 )
                 const user = response.data;
-                
                 setUser({
                     username: user.name,
                     email: user.email,
                 })
-                Cookies.set('user', true, { expires: 7 }); 
+                Cookies.set('user', JSON.stringify({
+                    username: user.name,
+                    email: user.email,
+                }), { expires: 7 }); 
             }catch(err){
                 console.log(`Error AuthContext, ${err}`)
                 signOut()
@@ -42,7 +44,7 @@ function AuthContextProvider({ children }){
 
     function signIn(user){
         setUser(user);
-        Cookies.set('user', true, { expires: 7 });
+        Cookies.set('user', JSON.stringify(user), { expires: 7 });
     }
 
     function signOut(){

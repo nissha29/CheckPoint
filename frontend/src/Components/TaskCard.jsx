@@ -1,4 +1,5 @@
-import { Clock, MoreVertical, AlertTriangle, Flag, CheckCircle2 } from 'lucide-react';
+import { Clock, MoreVertical, AlertTriangle, Flag, CheckCircle2, Edit, Trash2, Check } from 'lucide-react';
+import { useState } from 'react';
 
 const getPriorityStyles = (priority) => {
   switch (priority.toLowerCase()) {
@@ -30,8 +31,29 @@ const getPriorityStyles = (priority) => {
 };
 
 
-export function TaskCard({ task, onClick }){
+export function TaskCard({ task, onClick, onEdit, onComplete, onDelete }){
+  const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   const priorityStyles = getPriorityStyles(task.priority);
+
+  const handleClick = (e)=>{
+    e.stopPropagation();
+    setIsDropDownOpen(prev=>!prev)
+  }
+
+  const handleActionClick = (action) => {
+    setIsDropDownOpen(false);
+    switch (action) {
+      case 'edit':
+        onEdit && onEdit(task);
+        break;
+      case 'delete':
+        onDelete && onDelete(task);
+        break;
+      case 'complete':
+        onComplete && onComplete(task);
+        break;
+    }
+  };
 
   return (
     <div 
@@ -43,12 +65,46 @@ export function TaskCard({ task, onClick }){
           <div className="w-3 h-3 rounded-full bg-blue-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
         </div>
         
-        <div className="flex-1 space-y-2">
+        <div className="flex-1 space-y-2 relative">
           <div className="flex justify-between items-center">
             <h3 className="text-lg font-semibold text-white truncate pr-2">{task.title}</h3>
-            <button className="text-gray-400 hover:text-gray-600">
+            <div className='relative'>
+            <button 
+              className="text-gray-400 hover:text-gray-600"
+              onClick={handleClick}
+            >
               <MoreVertical size={20} />
             </button>
+
+            {isDropDownOpen && (
+              <div 
+                  className="absolute -right-2 top-full mt-2 w-48 bg-slate-700 border border-slate-600 rounded-md shadow-lg z-50"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <div className="py-1">
+                    <button
+                      className="flex items-center w-full px-4 py-2 text-left text-white hover:bg-slate-600 transition-colors"
+                      onClick={() => handleActionClick('edit')}
+                    >
+                      <Edit className="mr-2" size={16} /> Edit Task
+                    </button>
+                    <button
+                      className="flex items-center w-full px-4 py-2 text-left text-white hover:bg-slate-600 transition-colors"
+                      onClick={() => handleActionClick('complete')}
+                    >
+                      <Check className="mr-2" size={16} /> Mark Complete
+                    </button>
+                    <button
+                      className="flex items-center w-full px-4 py-2 text-left text-red-400 hover:bg-slate-600 transition-colors"
+                      onClick={() => handleActionClick('delete')}
+                    >
+                      <Trash2 className="mr-2" size={16} /> Delete Task
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+
           </div>
           
           <p className="text-gray-400 text-md overflow-hidden text-ellipsis line-clamp-1 break-words">

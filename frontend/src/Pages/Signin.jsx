@@ -38,7 +38,7 @@ const Signin = () => {
       )
       let username = response.data.name
       let email = response.data.email
-      console.log(email)
+      
       signIn({
         username,
         email
