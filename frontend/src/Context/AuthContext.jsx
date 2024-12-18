@@ -8,7 +8,10 @@ const AuthContext = createContext()
 
 function AuthContextProvider({ children }){
     const navigate = useNavigate()
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(() => {
+        const storedUser = Cookies.get('user');
+        return storedUser ? JSON.parse(storedUser) : null;
+    });
 
     async function getUserDetails(){
         const token = Cookies.get('token');
@@ -21,12 +24,15 @@ function AuthContextProvider({ children }){
                     }
                 )
                 const user = response.data;
+                
                 setUser({
                     username: user.name,
                     email: user.email,
                 })
+                Cookies.set('user', true, { expires: 7 }); 
             }catch(err){
                 console.log(`Error AuthContext, ${err}`)
+                signOut()
             }
         }
     }
@@ -35,12 +41,14 @@ function AuthContextProvider({ children }){
     }, []);
 
     function signIn(user){
-        setUser(user)
+        setUser(user);
+        Cookies.set('user', true, { expires: 7 });
     }
 
     function signOut(){
         setUser(null)
         Cookies.remove('token')
+        Cookies.remove('user');
         navigate('/signin')
     }
 

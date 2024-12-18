@@ -13,16 +13,18 @@ const TaskDashboard = () => {
   const { user, signOut } = useContext(AuthContext)
   const location = useLocation();
   const name = (location.state?.name || 'user');
+  const email = (location.state?.email);
+  console.log(email)
   const [selectedTask, setSelectedTask] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
   const [isCreateNewTaskOpen, setIsCreateNewTaskOpen] = useState(false);
   const [tasks, setTasks] = useState([]);
   
   const stats = [
-    { label: 'Total Tasks', value: '24' },
-    { label: 'Completed', value: '18' },
-    { label: 'In Progress', value: '6' },
-    { label: 'Completion Rate', value: '75%' }
+    { label: 'Total Tasks', value: '5' },
+    { label: 'Completed', value: '1' },
+    { label: 'In Progress', value: '2' },
+    { label: 'Completion Rate', value: '20%' }
   ];
 
   async function getTodos(){
@@ -70,8 +72,8 @@ const TaskDashboard = () => {
           {/* Dropdown Menu */}
           { isVisible && <div className="absolute right-0 mt-2 mr-2 w-60 bg-white border rounded-lg shadow-lg group-hover:block z-10">
             <div className="px-4 py-3 border-b">
-              <p className="text-sm font-medium text-gray-800">Welcome to your profile, { user.username } </p>
-              <p className="text-sm text-gray-500">{ user.email }</p>
+              <p className="text-sm font-medium text-gray-800">Welcome to your profile, { name } </p>
+              <p className="text-sm text-gray-500">{ email }</p>
             </div>
             <ul className="py-1">
               <li className='flex'>

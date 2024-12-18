@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { User, Mail, Lock, Eye, EyeOff, AlertTriangle } from "lucide-react";
 import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
 import axios from 'axios'
 import URL from '../../constants.js'
+import { AuthContext } from "../Context/AuthContext.jsx";
 
 const Signup = () => {
+  const { signIn } = useContext(AuthContext);
   const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('')
@@ -28,14 +30,25 @@ const Signup = () => {
     e.preventDefault();
     setError('');
     try{
-      await axios.post(
+      const response = await axios.post(
         `${URL}/user/signup`,
         formData,
         {
           withCredentials: true
         }
       )
-      navigate("/dashboard")
+      let username = response.data.name
+      let email = response.data.email
+      signIn({
+        username,
+        email
+      })
+      navigate("/dashboard", {
+        state: {
+          name: username,
+          email: email
+        }
+      })
     }catch(err) {
       
       if (err.response) {

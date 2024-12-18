@@ -12,10 +12,9 @@ export default function({ children }){
         }
     }, [user, navigate]);
 
-    if (!user) {
-        return null; 
+    if (user) {
+        return children; 
     }
 
-
-    return children;
+    return null;
 }

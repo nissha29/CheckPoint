@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
 import axios from 'axios'
 import URL from '../../constants.js'
-import { AuthContext, AuthContextProvider } from "../Context/AuthContext.jsx";
+import { AuthContext } from "../Context/AuthContext.jsx";
 
 const Signin = () => {
   const { signIn } = useContext(AuthContext); 
@@ -38,13 +38,15 @@ const Signin = () => {
       )
       let username = response.data.name
       let email = response.data.email
+      console.log(email)
       signIn({
         username,
         email
       })
       navigate("/dashboard", {
         state: {
-          name: username
+          name: username,
+          email: email
         }
       })
     }catch(err){

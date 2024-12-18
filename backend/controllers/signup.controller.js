@@ -61,6 +61,8 @@ const signup = async(req,res)=>{
         })
         .status(201)
         .json({
+            name: newUser.name,
+            email: newUser.email,
             success: true,
             message: 'You are signed up',
             token,
