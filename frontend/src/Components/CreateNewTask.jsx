@@ -61,7 +61,7 @@ export default function CreateNewTask({ isOpen, onClose, getTodos }){
               <input
                 type="text"
                 required
-                className="w-full px-3 py-2 bg-slate-900 rounded-lg border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                className="w-full px-3 py-2 bg-slate-700 rounded-lg border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                 value={formData.title}
                 name="title"
                 onChange={handleChange}
@@ -71,7 +71,7 @@ export default function CreateNewTask({ isOpen, onClose, getTodos }){
             <div>
               <label className="block text-sm font-medium mb-2">Description</label>
               <textarea
-                className="w-full px-3 py-2 bg-slate-900 rounded-lg border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                className="w-full px-3 py-2 bg-slate-700 rounded-lg border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                 rows="3"
                 value={formData.description}
                 name="description"
@@ -84,7 +84,7 @@ export default function CreateNewTask({ isOpen, onClose, getTodos }){
               <input
                 type="date"
                 required
-                className="w-full px-3 py-2 bg-slate-900 rounded-lg border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                className="w-full px-3 py-2 bg-slate-700 rounded-lg border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                 value={formData.dueDate}
                 name="dueDate"
                 onChange={handleChange}
@@ -94,7 +94,7 @@ export default function CreateNewTask({ isOpen, onClose, getTodos }){
             <div>
               <label className="block text-sm font-medium mb-2">Recurrence</label>
               <select
-                className="w-full px-3 py-2 bg-slate-900 rounded-lg border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                className="w-full px-3 py-2 bg-slate-700 rounded-lg border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                 value={formData.recurrence}
                 name="recurrence"
                 onChange={handleChange}
@@ -109,7 +109,7 @@ export default function CreateNewTask({ isOpen, onClose, getTodos }){
             <div>
               <label className="block text-sm font-medium mb-2">Priority</label>
               <select
-                className="w-full px-3 py-2 bg-slate-900 rounded-lg border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                className="w-full px-3 py-2 bg-slate-700 rounded-lg border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                 value={formData.priority}
                 name="priority"
                 onChange={handleChange}

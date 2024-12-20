@@ -18,6 +18,7 @@ const TaskDashboard = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isCreateNewTaskOpen, setIsCreateNewTaskOpen] = useState(false);
   const [tasks, setTasks] = useState([]);
+  const [currTab, setCurrTab] = useState('All');
 
   async function getTodos(){
     try{
@@ -62,9 +63,17 @@ const TaskDashboard = () => {
     getStats()
   },[tasks])
 
-  async function handleEdit(task){
+  async function handleEdit(updatedTask){
     try{
-
+      const id = updatedTask.id
+      await axios.patch(
+        `${URL}/todo/${id}`,
+        updatedTask,
+        {
+          withCredentials: true,
+        }
+      )
+      getTodos()
     }catch(err){
       console.log(`Error in task deleting, /dashboard`)
     }
@@ -82,6 +91,7 @@ const TaskDashboard = () => {
           withCredentials: true,
         }
       )
+      getTodos();
     }catch(err){
       console.log(`Error in task updating as completed, /dashboard, ${err}`)
     } 
@@ -101,6 +111,40 @@ const TaskDashboard = () => {
       console.log(`Error in task deleting, /dashboard, ${err}`)
     }
   }
+
+  function isTodayAndInProgress(date,status) {
+    const today = new Date();
+    const taskDate = new Date(date);
+    return (
+      ! status &&
+      taskDate.getDate() === today.getDate() &&
+      taskDate.getMonth() === today.getMonth() &&
+      taskDate.getFullYear() === today.getFullYear()
+    );
+  }
+  
+  function isUpcoming(date) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); 
+    const taskDate = new Date(date);
+    taskDate.setHours(0, 0, 0, 0);
+    return taskDate > today;
+  }
+  
+  function filterTasks(tasks, activeTab) {
+    switch(activeTab) {
+      case 'Today':
+        return tasks.filter(task => isTodayAndInProgress(task.dueDate,task.status));
+      case 'Upcoming':
+        return tasks.filter(task => isUpcoming(task.dueDate));
+      case 'Completed':
+        return tasks.filter(task => task.status === true);
+      default: 
+        return tasks;
+    }
+  }
+  
+  const filteredTasks = filterTasks(tasks,currTab);
 
   return (
     <div className="min-h-screen p-4 md:p-6 lg:p-8 text-white">
@@ -182,8 +226,9 @@ const TaskDashboard = () => {
             <button
               key={index}
               className={`px-4 py-2 rounded-lg whitespace-nowrap ${
-                tab === 'All' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:bg-slate-800'
+                tab === currTab ? 'bg-blue-600 text-white' : 'text-slate-400 hover:bg-slate-800'
               }`}
+              onClick={()=>setCurrTab(tab)}
             >
               {tab}
             </button>
@@ -192,11 +237,27 @@ const TaskDashboard = () => {
       </div>
 
       {/* Task Grid with Empty State */}
-      {tasks.length === 0 ? (
-        <EmptyState setIsCreateNewTaskOpen={setIsCreateNewTaskOpen}/>
+      {filteredTasks.length === 0 ? (
+        tasks.length === 0 ? 
+        (<EmptyState setIsCreateNewTaskOpen={setIsCreateNewTaskOpen}/>) 
+        : (
+          <div className="flex flex-col items-center justify-center p-8 mt-10">
+            <div className="w-16 h-16 bg-slate-800 rounded-full flex items-center justify-center mb-4">
+              <CheckSquare size={24} className="text-slate-400" />
+            </div>
+            <h3 className="text-xl font-semibold text-white mb-2">No tasks to show</h3>
+            <p className="text-slate-400 text-center mb-4">There are no tasks matching your current filter.</p>
+            <button
+              onClick={() => setCurrTab('All')}
+              className="px-4 py-2 text-md bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              View all tasks
+            </button>
+          </div>
+        )
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {tasks.map((task, index) => (
+          {filteredTasks.map((task, index) => (
             <TaskCard 
               key={index} 
               task={task} 

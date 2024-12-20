@@ -1,5 +1,6 @@
 import { Clock, MoreVertical, AlertTriangle, Flag, CheckCircle2, Edit, Trash2, Check } from 'lucide-react';
 import { useState } from 'react';
+import EditTask from './EditTask.jsx';
 
 const getPriorityStyles = (priority) => {
   switch (priority.toLowerCase()) {
@@ -33,6 +34,7 @@ const getPriorityStyles = (priority) => {
 
 export function TaskCard({ task, onClick, onEdit, onComplete, onDelete }){
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
+  const [isEditFormOpen, setIsEditFormOpen] = useState(false);
   const priorityStyles = getPriorityStyles(task.priority);
 
   const handleClick = (e)=>{
@@ -40,25 +42,22 @@ export function TaskCard({ task, onClick, onEdit, onComplete, onDelete }){
     setIsDropDownOpen(prev=>!prev)
   }
 
-  const handleActionClick = (action) => {
-    setIsDropDownOpen(false);
-    switch (action) {
-      case 'edit':
-        onEdit && onEdit(task);
-        break;
-      case 'delete':
-        onDelete && onDelete(task);
-        break;
-      case 'complete':
-        onComplete && onComplete(task);
-        break;
+  const handleCardClick = (e) => {
+    if (!isDropDownOpen && !isEditFormOpen) {
+      onClick && onClick(task);
     }
   };
 
+
+
+  const handleSave = (updatedTask)=>{
+    onEdit && onEdit(updatedTask);
+  }
+
   return (
     <div 
-      className="bg-slate-800 shadow-md rounded-lg p-4 hover:shadow-lg transition-shadow duration-300 relative group cursor-pointer"
-      onClick={onClick}
+      className={`shadow-md rounded-lg p-4 hover:shadow-lg transition-shadow duration-300 relative group cursor-pointer bg-slate-800`}
+      onClick={handleCardClick}
     >
       <div className="flex items-start space-x-4">
         <div className="w-6 h-6 rounded-full border-2 border-gray-300 mt-1 flex items-center justify-center">
@@ -67,7 +66,7 @@ export function TaskCard({ task, onClick, onEdit, onComplete, onDelete }){
         
         <div className="flex-1 space-y-2 relative">
           <div className="flex justify-between items-center">
-            <h3 className="text-lg font-semibold text-white truncate pr-2">{task.title}</h3>
+            <h3 className={`text-lg font-semibold text-white text-ellipsis line-clamp-1 break-words max-w-28 pr-2 ${task.status ? 'line-through' : ''}`}>{task.title}</h3>
             <div className='relative'>
             <button 
               className="text-gray-400 hover:text-gray-600"
@@ -82,21 +81,28 @@ export function TaskCard({ task, onClick, onEdit, onComplete, onDelete }){
                   onClick={(e) => e.stopPropagation()}
                 >
                   <div className="py-1">
-                    <button
+                    { !task.status && <button
                       className="flex items-center w-full px-4 py-2 text-left text-white hover:bg-slate-600 transition-colors"
-                      onClick={() => handleActionClick('edit')}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setIsEditFormOpen(true)
+                      }}
                     >
                       <Edit className="mr-2" size={16} /> Edit Task
-                    </button>
-                    <button
+                    </button>}
+                    { !task.status && <button
                       className="flex items-center w-full px-4 py-2 text-left text-white hover:bg-slate-600 transition-colors"
-                      onClick={() => handleActionClick('complete')}
+                      onClick={() => {
+                        onComplete && onComplete(task);
+                      }}
                     >
                       <Check className="mr-2" size={16} /> Mark Complete
-                    </button>
+                    </button>}
                     <button
                       className="flex items-center w-full px-4 py-2 text-left text-red-400 hover:bg-slate-600 transition-colors"
-                      onClick={() => handleActionClick('delete')}
+                      onClick={() => {
+                        onDelete && onDelete(task);
+                      }}
                     >
                       <Trash2 className="mr-2" size={16} /> Delete Task
                     </button>
@@ -107,7 +113,7 @@ export function TaskCard({ task, onClick, onEdit, onComplete, onDelete }){
 
           </div>
           
-          <p className="text-gray-400 text-md overflow-hidden text-ellipsis line-clamp-1 break-words">
+          <p className={`text-gray-400 text-md overflow-hidden text-ellipsis line-clamp-1 break-words max-w-48 ${task.status ? 'line-through' : ''}`}>
             {task.description}
           </p>
           
@@ -127,8 +133,17 @@ export function TaskCard({ task, onClick, onEdit, onComplete, onDelete }){
               <span className="text-[0.88rem]">{task.dueDate}</span>
             </div>
           </div>
+
         </div>
+
       </div>
+
+      <EditTask 
+        task={task}
+        isOpen={isEditFormOpen}
+        onClose={()=>setIsEditFormOpen(false)}
+        onSave={handleSave}
+      />
     </div>
   )
 };

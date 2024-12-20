@@ -38,7 +38,7 @@ const signin = async(req, res) => {
             maxAge: 30 * 24 * 60 * 60 * 1000,
             sameSite: 'none',
             httpOnly: true,
-            secure: true,
+            secure: process.env.NODE_ENV === 'production',
             path: '/',
         };
 

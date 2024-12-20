@@ -51,8 +51,8 @@ export function TaskModal({ task, isOpen, onClose }) {
   
           <div className="flex items-start gap-4">
             <div className="flex-1">
-              <h3 className="text-xl font-semibold mb-3">{task.title}</h3>
-              <p className="text-slate-400 mb-6">{task.description}</p>
+              <h3 className={`text-xl font-semibold mb-3  ${task.status ? 'line-through' : ''}`}>{task.title}</h3>
+              <p className={`text-slate-400 mb-6  ${task.status ? 'line-through' : ''}`}>{task.description}</p>
               
               <div className="grid grid-cols-2 gap-4 mb-6">
                 <div className="bg-slate-700/50 p-4 rounded-lg">
